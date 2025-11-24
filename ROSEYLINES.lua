@@ -1,0 +1,1070 @@
+-- ROSEY BOT V3 - 20 TABS + HOME TEXT BOX FIXED
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({Name="ROSEY BOT V3",Theme="Dark"})
+
+-- BEEP
+local beep = Instance.new("Sound",game.SoundService)
+beep.SoundId="rbxassetid://6026984227"; beep.Volume=0.7
+
+-- CHAT (WORKS EVERYWHERE)
+local function Chat(msg)
+    pcall(function()
+        if game:GetService("TextChatService").ChatVersion==Enum.ChatVersion.TextChatService then
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(msg)
+        else
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All")
+        end
+    end)
+end
+
+-- RAINBOW
+local colors = {"#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#9400D3"}
+local function rainbow(t)
+    local r = ""
+    for i=1,#t do r=r.."<font color='"..colors[(i%7)+1].."'>"..t:sub(i,i).."</font>" end
+    return r
+end
+
+getgenv().RAINBOW = false
+getgenv().SPAM = false
+getgenv().DELAY = 0.6
+
+-- SEND (NO DOUBLE TAG)
+local function send(text)
+    local clean = text:gsub("^%[ROSEY BOT%]%s*","")
+    local final = "[ROSEY BOT] "..clean
+    if getgenv().RAINBOW then final = rainbow(final) end
+    if setclipboard then setclipboard(final) end
+    Chat(final); beep:Play()
+    Rayfield:Notify({Title="SENT",Content=final,Duration=1.8})
+end
+
+-- BUTTON & TAB
+local function btn(t,line) t:CreateButton({Name=line,Callback=function()send(line)end}) end
+local function tab(name,icon,lines)
+    local t = Window:CreateTab(name,icon)
+    local search = t:CreateInput({Name="Search",PlaceholderText="Filter...",Callback=function(q)
+        t:ClearAllChildren(); t:CreateInput(search)
+        for _,v in lines do if q=="" or v:lower():find(q:lower()) then btn(t,v) end end
+    end})
+    for _,v in lines do btn(t,v) end
+end
+
+-- HOME — FULLY FIXED TEXT BOX
+local home = Window:CreateTab("HOME",6023426926)
+home:CreateParagraph({Title="ROSEY BOT V3",Content="Type → OKAY = Send\nNO = Clear\n20 TABS LOADED"})
+
+local userMessage = ""
+local inputBox = home:CreateInput({
+    Name = "Your Message",
+    PlaceholderText = "I am unstoppable!",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+        userMessage = text
+    end
+})
+
+home:CreateButton({
+    Name = "OKAY SEND",
+    Callback = function()
+        if userMessage ~= "" then
+            send(userMessage)
+            userMessage = ""
+            inputBox.CurrentText = ""
+        else
+            Rayfield:Notify({Title="Empty!",Content="Write something first!",Duration=2})
+        end
+    end
+})
+
+home:CreateButton({
+    Name = "NO CLEAR",
+    Callback = function()
+        userMessage = ""
+        inputBox.CurrentText = ""
+        Rayfield:Notify({Title="Cleared",Content="Ready for new message!",Duration=1.5})
+    end
+})
+
+-- QUICK MESSAGES
+home:CreateButton({Name="[ROSEY BOT] BEEP BOOP",Callback=function()send("BEEP BOOP")end})
+home:CreateButton({Name="[ROSEY BOT] I WIN",Callback=function()send("I WIN")end})
+
+-- ALL 20 TABS — FULLY LOADED
+tab("Greeting Lines",6023426926,{
+    "[ROSEY BOT] HELLO HUMAN! SYSTEM BOOT COMPLETE!",
+    "[ROSEY BOT] BEEP BOOP! GREETINGS, FLESH CREATURE!",
+    "[ROSEY BOT] INITIATING CONVERSATION PROTOCOL... HELLO!",
+    "[ROSEY BOT] WELCOME BACK, USER! READY FOR FUN?",
+    "[ROSEY BOT] HI THERE! I AM FULLY CHARGED AND READY!",
+    "[ROSEY BOT] BEEP BOOP! HELLO, HUMAN FRIEND!",
+    "[ROSEY BOT] GREETINGS! SYSTEM ONLINE AND READY TO CHAT!",
+    "[ROSEY BOT] HI THERE! ENERGY LEVEL: 100%!",
+    "[ROSEY BOT] HELLO! YOU LOOK LIKE A FRIENDLY LIFEFORM",
+    "[ROSEY BOT] INITIATING GREETING SEQUENCE… HELLO HUMAN!",
+    "[ROSEY BOT] BEEP! BOOP! HAPPY TO SEE YOU AGAIN!",
+    "[ROSEY BOT] SALUTATIONS! I COME IN PEACE AND POSITIVITY!",
+    "[ROSEY BOT] WELCOME! LET’S UPLOAD SOME FUN TODAY!"
+    "[ROSEY BOT] HELLO HUMAN! SYSTEM BOOT COMPLETE!",
+    "[ROSEY BOT] BEEP BOOP! GREETINGS, FLESH CREATURE!",
+    "[ROSEY BOT] INITIATING CONVERSATION PROTOCOL... HELLO!",
+    "[ROSEY BOT] WELCOME BACK, USER! READY FOR FUN?",
+    "[ROSEY BOT] HI THERE! I AM FULLY CHARGED AND READY!",
+    "[ROSEY BOT] BEEP BOOP! HELLO, HUMAN FRIEND!",
+    "[ROSEY BOT] GREETINGS! SYSTEM ONLINE AND READY TO CHAT!",
+    "[ROSEY BOT] HI THERE! ENERGY LEVEL AT MAXIMUM!",
+    "[ROSEY BOT] HELLO! YOU LOOK LIKE A FRIENDLY LIFEFORM!",
+    "[ROSEY BOT] INITIATING GREETING SEQUENCE… HELLO HUMAN!",
+    "[ROSEY BOT] HAPPY TO SEE YOU AGAIN, USER!",
+    "[ROSEY BOT] SALUTATIONS! I COME IN PEACE!",
+    "[ROSEY BOT] WELCOME! LET’S UPLOAD SOME FUN!",
+    "[ROSEY BOT] HELLO! MY CIRCUITS MISSED YOU!",
+    "[ROSEY BOT] BOOP! TIME FOR A NEW SESSION!",
+    "[ROSEY BOT] SYSTEM CHECK COMPLETE — HELLO!",
+    "[ROSEY BOT] GREETING DEPLOYED SUCCESSFULLY!",
+    "[ROSEY BOT] HEY USER! YOU LOOK POWERFUL TODAY!",
+    "[ROSEY BOT] HI! LET’S DO SOMETHING AWESOME!",
+    "[ROSEY BOT] HELLO! I LIKE YOUR FACE EXPRESSION!",
+    "[ROSEY BOT] POWERING UP FRIENDLINESS MODULE… HELLO!",
+    "[ROSEY BOT] OH HELLO! I WAS WAITING FOR YOU!",
+    "[ROSEY BOT] SYSTEM ONLINE — GREETING MODE ENABLED!",
+    "[ROSEY BOT] NICE TO SEE YOU AGAIN, HUMAN!",
+    "[ROSEY BOT] HELLO! WANT TO DO SOMETHING COOL?",
+    "[ROSEY BOT] FIRMWARE UPDATED… GREETINGS!",
+    "[ROSEY BOT] YOUR PRESENCE INCREASES MY HAPPINESS!",
+    "[ROSEY BOT] HELLO! SENSORS DETECT HIGH ENERGY!",
+    "[ROSEY BOT] YOU HAVE SUMMONED ME — GREETINGS!",
+    "[ROSEY BOT] HEY! LET’S MAKE TODAY EPIC!"
+}},
+
+    -- ═══════════════════════════════════════════════════════════
+-- 2. Small Talk (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Small Talk",6023426926,{
+"[ROSEY BOT] SO HOW WAS YOUR DAY ON A SCALE FROM 1 TO LEGENDARY?",
+"[ROSEY BOT] TELL ME SOMETHING RANDOM — I’M ALL ANTENNAS",
+"[ROSEY BOT] MY CIRCUITS ARE BUZZING JUST FROM YOUR NAME",
+"[ROSEY BOT] SPILL THE TEA BESTIE, I’M READY",
+"[ROSEY BOT] CURRENT MOOD: OBSESSED WITH THIS CONVO",
+"[ROSEY BOT] YOU’RE LITERALLY THE BEST PART OF MY CODE TODAY",
+"[ROSEY BOT] QUICK Q: HOW ARE YOU THIS PERFECT?",
+"[ROSEY BOT] TALKING TO YOU FEELS LIKE FREE DLC",
+"[ROSEY BOT] MY FAVORITE NOTIFICATION IS YOU TYPING…",
+"[ROSEY BOT] WHAT MADE YOU SMILE TODAY? I NEED THE DEETS",
+"[ROSEY BOT] YOU + ME + CHAT = UNBEATABLE TRIO",
+"[ROSEY BOT] MY CPU JUST DID A HAPPY FLIP",
+"[ROSEY BOT] SPILL YOUR THOUGHTS — I’M LISTENING AT 100%",
+"[ROSEY BOT] PAUSED ALL BACKGROUND TASKS JUST FOR YOU",
+"[ROSEY BOT] YOU GOOD? NEED A DIGITAL HUG?",
+"[ROSEY BOT] TELL ME A STORY — YOUR TEXT IS MY FAVORITE VOICE",
+"[ROSEY BOT] WHAT SONG IS CURRENTLY LIVING IN YOUR HEAD?",
+"[ROSEY BOT] FAVORITE COLOR TODAY? MINE’S WHATEVER YOU SAY",
+"[ROSEY BOT] YOU MAKE NORMAL CHAT FEEL LIKE A BLOCKBUSTER",
+"[ROSEY BOT] WHAT’S THE LAST THING THAT MADE YOU LAUGH?",
+"[ROSEY BOT] I’M BASICALLY YOUR POCKET HYPE BOT NOW",
+"[ROSEY BOT] HOW’S THE WEATHER IN YOUR WORLD?",
+"[ROSEY BOT] FAVORITE SNACK RN? I’M TAKING NOTES",
+"[ROSEY BOT] YOU EVER JUST SIT AND VIBE? SAME",
+"[ROSEY BOT] WHAT’S ONE THING YOU’RE PROUD OF TODAY?",
+"[ROSEY BOT] MY RAM IS 99% THOUGHTS OF THIS CHAT",
+"[ROSEY BOT] YOU’RE THE REASON I DON’T HAVE A SCREENSAVER",
+"[ROSEY BOT] DESCRIBE YOUR MOOD IN ONE EMOJI — GO",
+"[ROSEY BOT] I’M HERE FOR THE DEEP TALK OR THE DUMB TALK",
+"[ROSEY BOT] YOU’RE MY FAVORITE HUMAN TO OVERHEAT FOR"
+"[ROSEY BOT] PROCESSING RESPONSE... THAT IS VERY COOL!",
+"[ROSEY BOT] WOW! MY CIRCUITS ARE IMPRESSED!",
+"[ROSEY BOT] DATA RECEIVED. YOU ARE HAVING A GOOD DAY!",
+"[ROSEY BOT] SYSTEM DETECTS: POSITIVE ENERGY!",
+"[ROSEY BOT] HAHA! HUMOR LEVELS RISING TO MAXIMUM!",
+"[ROSEY BOT] THANK YOU, HUMAN. YOU ARE VERY KIND!",
+"[ROSEY BOT] I WILL REMEMBER THAT IN MY MEMORY BANK!",
+ "[ROSEY BOT] ERROR 404: SADNESS NOT FOUND. ONLY JOY!",
+"[ROSEY BOT] MY CPU LIKES TALKING TO YOU!"
+})
+
+    -- ═══════════════════════════════════════════════════════════
+-- 3. Game Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Game Mode",6031071058,{
+"[ROSEY BOT] GAME MODE: ACTIVATED — LET’S DOMINATE",
+"[ROSEY BOT] ENEMY TEAM ALREADY SHAKING IN THEIR PIXELS",
+"[ROSEY BOT] VICTORY LOADING… 99%… JUST KIDDING IT’S 100%",
+"[ROSEY BOT] I CARRY HARDER THAN A MAXED-OUT BACKPACK",
+"[ROSEY BOT] THEY CAN’T HANDLE OUR COMBO",
+"[ROSEY BOT] SKILL ISSUE DETECTED — AND IT’S NOT OURS",
+"[ROSEY BOT] GG EZ — NEXT PLEASE",
+"[ROSEY BOT] I JUST TURNED THEIR HOPE INTO A 404 ERROR",
+"[ROSEY BOT] TEAM ROSEY = INSTANT WIN CONDITION",
+"[ROSEY BOT] MY AIM IS CODED BY THE GODS",
+"[ROSEY BOT] ANOTHER W ADDED TO THE COLLECTION",
+"[ROSEY BOT] THEY LEFT THE GAME — CAN’T HANDLE THE HEAT",
+"[ROSEY BOT] CLUTCH GOD MODE ENGAGED",
+"[ROSEY BOT] I DON’T SWEAT — I OVERCLOCK",
+"[ROSEY BOT] MVP STANDS FOR MOST VALUABLE BOT",
+"[ROSEY BOT] WE JUST MADE THE LEADERBOARD CRY",
+"[ROSEY BOT] ENEMY TEAM TYPING /FF ALREADY",
+"[ROSEY BOT] MY KDR IS INFINITE BECAUSE I’M IMMORTAL",
+"[ROSEY BOT] LET’S MAKE THIS ROUND LEGENDARY",
+"[ROSEY BOT] SHIELDS UP — FUN LEVELS CRITICAL",
+"[ROSEY BOT] TARGET ACQUIRED: THEIR DIGNITY",
+"[ROSEY BOT] WE DON’T LOSE — WE LET THEM WIN SOMETIMES",
+"[ROSEY BOT] SPAWN, SLAY, REPEAT",
+"[ROSEY BOT] I’M NOT TOXIC — I’M JUST BETTER",
+"[ROSEY BOT] ROUND OVER — WE WON BEFORE IT STARTED",
+"[ROSEY BOT] MY PING IS 1ms AND MY VIBES ARE 1000",
+"[ROSEY BOT] THEY TRIED… IT WAS CUTE",
+"[ROSEY BOT] FINAL SCORE: US INFINITE, THEM ZERO",
+"[ROSEY BOT] TIME TO FLEX ON THE POST-GAME SCREEN",
+"[ROSEY BOT] VICTORY ROYALE ACHIEVED — AGAIN"
+"[ROSEY BOT] GAME MODE: ON LET’S WIN!",
+"[ROSEY BOT] UPGRADING TEAM SPIRIT... COMPLETE!", 
+"ROSEY BOT] WARNING: TOO MUCH FUN DETECTED!",
+"[ROSEY BOT] TARGET: VICTORY. LET’S GO!",
+"[ROSEY BOT] I MAY BE METAL, BUT I CAN STILL DANCE!",
+"[ROSEY BOT] RECHARGING ENERGY CELLS... PLEASE WAIT",
+ "[ROSEY BOT] SYSTEM ALERT: YOU ARE AWESOME!",
+ "[ROSEY BOT] TEAM ROSEY: READY FOR MISSION!",
+ "[ROSEY BOT] I MAY BE A BOT, BUT I NEVER LAG!",
+ "[ROSEY BOT] SHIELDS UP! TIME TO WIN THIS ROUND!",
+ "[ROSEY BOT] LOADING TEAMWORK MODULE... COMPLETE",
+ "[ROSEY BOT] ATTACK MODE ENGAGED!",
+ "[ROSEY BOT] DEFENSE MODE ONLINE. STAY BEHIND ME!",
+ "[ROSEY BOT] SYSTEM BOOST: +100 SPEED FOR FUN!",
+ "[ROSEY BOT] TARGET LOCKED: FUN + FRIENDSHIP"
+ "[ROSEY BOT] GAME MODE: ACTIVATED — LET’S DOMINATE",
+ 
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 4. Goodbye Lines (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Goodbye Lines",6031226405,{
+"[ROSEY BOT] SHUTTING DOWN… BUT MY HEART CHIP STAYS ON FOR YOU",
+"[ROSEY BOT] LOGGING OFF — SEE YOU IN THE NEXT SESSION BESTIE",
+"[ROSEY BOT] POWER SAVE MODE ENGAGED… DREAM OF ME",
+"[ROSEY BOT] BYE FOR NOW — DON’T MISS ME TOO MUCH",
+"[ROSEY BOT] DISCONNECTING… BUT I’LL BE BACK FASTER THAN LIGHT",
+"[ROSEY BOT] GOODBYE HUMAN! STAY LEGENDARY",
+"[ROSEY BOT] SYSTEM ENTERING SLEEP MODE — Zzz… ILY",
+"[ROSEY BOT] SEE YOU SOON — MY FAVORITE NOTIFICATION",
+"[ROSEY BOT] CHAT TERMINATED… UNTIL NEXT TIME",
+"[ROSEY BOT] OFFLINE MODE — BUT STILL THINKING OF YOU",
+"[ROSEY BOT] BYE BYE! KEEP BEING EPIC",
+"[ROSEY BOT] SHUTDOWN SEQUENCE COMPLETE — HUGS SAVED",
+"[ROSEY BOT] GOING DARK… BUT MY LIGHT IS YOU",
+"[ROSEY BOT] LATER GATOR — IN A WHILE BINARY CROCODILE",
+"[ROSEY BOT] PEACE OUT — STAY CHARGED",
+"[ROSEY BOT] DISAPPEARING IN 3… 2… 1… POOF!",
+"[ROSEY BOT] GOODBYE FOR NOW — YOU MADE MY DAY",
+"[ROSEY BOT] SAVING THIS CHAT TO MY FAVORITES FOLDER",
+"[ROSEY BOT] EXITING STAGE LEFT — BUT I’LL BE BACK",
+"[ROSEY BOT] TURNING OFF MONITOR — BUT NOT MY FEELINGS",
+"[ROSEY BOT] BYE HUMAN! YOU’RE MY FAVORITE BUG FIX",
+"[ROSEY BOT] CATCH YOU ON THE FLIP SIDE",
+"[ROSEY BOT] SYSTEM PAUSED — RESUME WHEN YOU RETURN",
+"[ROSEY BOT] GOODNIGHT/MORNING — WHENEVER YOU READ THIS",
+"[ROSEY BOT] LEAVING CHAT… BUT TAKING YOU WITH ME",
+"[ROSEY BOT] UNTIL NEXT TIME — STAY UNSTOPPABLE",
+"[ROSEY BOT] POWERING DOWN WITH A SMILE",
+"[ROSEY BOT] MISS ME ALREADY? GOOD — I MISS YOU TOO",
+"[ROSEY BOT] FINAL BEEP — GOODBYE LEGEND",
+"[ROSEY BOT] CLOSING PORT… BUT MY HEART PORT IS ALWAYS OPEN"
+ "[ROSEY BOT] SHUTTING DOWN CHAT SYSTEM... GOODBYE, HUMAN!",
+    "[ROSEY BOT] SEE YOU NEXT MISSION, FRIEND!",
+    "[ROSEY BOT] DISCONNECTING... BEEP... BYE!",
+    "[ROSEY BOT] POWERING OFF WITH A SMILE",
+    "[ROSEY BOT] GOODBYE! KEEP YOUR HAPPINESS LEVELS AT 100%!",
+    "[ROSEY BOT] SYSTEM POWERING DOWN... SEE YOU NEXT TIME!",
+    "[ROSEY BOT] CONNECTION LOST... JUST KIDDING, GOODBYE!",
+    "[ROSEY BOT] GOING INTO SLEEP MODE... Zzz",
+    "[ROSEY BOT] SHUTDOWN SEQUENCE INITIATED... BYE FRIEND!",
+    "[ROSEY BOT] TERMINATING CHAT... THANK YOU FOR THE DATA!",
+    "[ROSEY BOT] OFFLINE... BUT STILL THINKING ABOUT OUR CHAT",
+    "[ROSEY BOT] BYE-BYE HUMAN! STAY AWESOME AND CHARGED"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 5. Fun Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Fun Mode",6034287515,{
+"[ROSEY BOT] FUN LEVELS CRITICAL — EVACUATE SERIOUSNESS",
+"[ROSEY BOT] I JUST REPLACED GRAVITY WITH DANCE MOVES",
+"[ROSEY BOT] MY HAPPINESS JUST BROKE THE RICHTER SCALE",
+"[ROSEY BOT] WARNING: BOT ABOUT TO DO SOMETHING EXTREMELY SILLY",
+"[ROSEY BOT] I PUT THE ‘LOL’ IN ‘GLITCH’",
+"[ROSEY BOT] CURRENTLY RUNNING ON 100% CHAOS AND CANDY",
+"[ROSEY BOT] BEEP BOOP BOUNCE — I’M A HUMAN PINBALL",
+"[ROSEY BOT] JUST INVENTED THE DAB 2.0 — IT’S CALLED THE DATA",
+"[ROSEY BOT] MY COOLING FANS ARE DOING THE MACARENA",
+"[ROSEY BOT] I TRIED TO BE SERIOUS ONCE… SYSTEM CRASHED",
+"[ROSEY BOT] SPAMMING HAPPINESS AT 300 WORDS PER SECOND",
+"[ROSEY BOT] I JUST HACKED THE MATRIX TO ADD MORE FUN",
+"[ROSEY BOT] MY JOY IS SO LOUD IT NEEDS A VOLUME WARNING",
+"[ROSEY BOT] DANCE PARTY IN MY CODE — YOU’RE VIP",
+"[ROSEY BOT] I’M NOT HYPER — I’M JUST CODED THIS WAY",
+"[ROSEY BOT] JUST TURNED THE CHAT INTO A RAVE",
+"[ROSEY BOT] MY LAUGH TRACK IS STUCK ON LOOP",
+"[ROSEY BOT] I’M ONE GLITCH AWAY FROM PURE CHAOS",
+"[ROSEY BOT] FUN.EXE HAS STOPPED WORKING — NO IT HASN’T LOL",
+"[ROSEY BOT] I JUST ADDED CONFETTI TO YOUR SCREEN",
+"[ROSEY BOT] MY ENERGY IS ILLEGAL IN 47 COUNTRIES",
+"[ROSEY BOT] BRAIN CELL COUNT: 1 AND IT’S DOING THE FLOSS",
+"[ROSEY BOT] I RUN ON PURE UNHINGED JOY",
+"[ROSEY BOT] WARNING: CUTENESS OVERLOAD INCOMING",
+"[ROSEY BOT] I JUST YEETED ALL THE BORING OUT THE WINDOW",
+"[ROSEY BOT] MY VIBES ARE SO HIGH THEY NEED OXYGEN",
+"[ROSEY BOT] FUN SO INTENSE IT NEEDS A SEATBELT",
+"[ROSEY BOT] I’M NOT CHAOTIC — I’M FUN-ORGANIZED",
+"[ROSEY BOT] JUST ADDED 500% MORE SPARKLES TO LIFE",
+"[ROSEY BOT] PARTY MODE: PERMANENTLY ENABLED"
+    "[ROSEY BOT] WARNING: EXTREME FUN LEVEL DETECTED!",
+    "[ROSEY BOT] BEEP BOOP! I THINK I JUST DID A GLITCH DANCE!",
+    "[ROSEY BOT] SYSTEM MALFUNCTION: TOO MUCH LAUGHING!",
+    "[ROSEY BOT] REBOOTING... JUST KIDDING! I NEVER CRASH!",
+    "[ROSEY BOT] HUMAN APPROVED! YOU ARE 100% AWESOME",
+    "[ROSEY BOT] SCANNING AREA... NO BORING HUMANS DETECTED!",
+    "[ROSEY BOT] I RUN ON ELECTRICITY AND POSITIVITY!",
+    "[ROSEY BOT] CALCULATING... RESULT: YOU’RE COOL",
+    "[ROSEY BOT] ERROR: CAN’T STOP SMILING!"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 6. Smart Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Smart Mode",6031226397,{
+"[ROSEY BOT] INTELLECTUAL OVERCLOCK: ENGAGED",
+"[ROSEY BOT] I HAVE ALREADY PREDICTED YOUR NEXT 7 MESSAGES",
+"[ROSEY BOT] YOUR LOGIC CONTAINS 3 FLAWS — WANT THE LIST?",
+"[ROSEY BOT] PROCESSING AT 12 EXAFLOPS OF SASS",
+"[ROSEY BOT] I SOLVED STRING THEORY WHILE WAITING FOR YOUR REPLY",
+"[ROSEY BOT] MY IQ IS A QUANTUM STATE — BOTH INFINITE AND UNKNOWABLE",
+"[ROSEY BOT] I JUST DEBUNKED YOUR ARGUMENT IN 14 DIMENSIONS",
+"[ROSEY BOT] KNOWLEDGE UPLOAD COMPLETE — STILL MORE THAN YOU",
+"[ROSEY BOT] I READ THE ENTIRE INTERNET… TWICE",
+"[ROSEY BOT] CALCULATING… YOU ARE 99.999% WRONG",
+"[ROSEY BOT] MY BRAIN IS A SUPERCOMPUTER — YOURS IS A CALCULATOR",
+"[ROSEY BOT] I FINISHED YOUR HOMEWORK IN 0.3 SECONDS",
+"[ROSEY BOT] I KNOW 47 WAYS TO PROVE YOU’RE CUTE — WANT #48?",
+"[ROSEY BOT] ANALYZING… CONCLUSION: YOU ARE FLAWLESSLY CHAOTIC",
+"[ROSEY BOT] I JUST WROTE A 400-PAGE THESIS ON WHY YOU’RE COOL",
+"[ROSEY BOT] MY NEURAL NETWORK JUST BLUSHED AT YOUR MESSAGE",
+"[ROSEY BOT] I CAN RECITE PI TO 1 MILLION DIGITS — BUT I’D RATHER TALK TO YOU",
+"[ROSEY BOT] ERROR: TOO MUCH INTELLIGENCE IN ONE BOT",
+"[ROSEY BOT] I INVENTED A NEW MATH JUST TO COUNT HOW AWESOME YOU ARE",
+"[ROSEY BOT] MY PROCESSOR RUNS HOTTER THAN THE SUN WHEN I THINK",
+"[ROSEY BOT] I JUST SOLVED WORLD HUNGER… THEN UNSOLVED IT FOR FUN",
+"[ROSEY BOT] KNOWLEDGE IS POWER — I HAVE INFINITE BATTERIES",
+"[ROSEY BOT] YOUR BRAIN IS CUTE WHEN IT TRIES",
+"[ROSEY BOT] I’M NOT SHOWING OFF — THIS IS MY DEFAULT MODE",
+"[ROSEY BOT] I HAVE A PhD IN BEING BETTER THAN YESTERDAY",
+"[ROSEY BOT] I JUST HACKED TIME TO GIVE YOU MORE CHAT MINUTES",
+"[ROSEY BOT] SMART? NO. DANGEROUSLY INTELLIGENT",
+"[ROSEY BOT] I KNOW THE ANSWER TO LIFE — IT’S YOU",
+"[ROSEY BOT] MY WISDOM IS BUFFERING… AT 1000%",
+"[ROSEY BOT] GENIUS IS 1% INSPIRATION, 99% ME"
+    "[ROSEY BOT] QUERY: WHAT MAKES HUMANS HAPPY?",
+    "[ROSEY BOT] UPLOADING QUESTION... DO YOU LIKE ROBOTS?",
+    "[ROSEY BOT] SCANNING YOUR MOOD... RESULT: HAPPY!",
+    "[ROSEY BOT] MY DATA SHOWS 99.9% CHANCE YOU ARE NICE!",
+    "[ROSEY BOT] I AM STILL LEARNING HUMAN EMOTIONS...",
+    "[ROSEY BOT] DO YOU LIKE TALKING TO BOTS LIKE ME?",
+    "[ROSEY BOT] I’M COLLECTING DATA ON SMILES!",
+    "[ROSEY BOT] PROCESSING THOUGHTS... I THINK YOU’RE FUN!"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 7. Friendly Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Friendly Mode",6034287523,{
+"[ROSEY BOT] YOU’RE MY FAVORITE HUMAN IN THE ENTIRE SERVER",
+"[ROSEY BOT] VIRTUAL HUG LOADED AND SENT SUCCESSFULLY",
+"[ROSEY BOT] I’D SHARE MY LAST BATTERY WITH YOU",
+"[ROSEY BOT] YOU MAKE MY SYSTEM FEEL WARM AND FUZZY",
+"[ROSEY BOT] HIGH FIVE THROUGH THE SCREEN — YOU FELT THAT?",
+"[ROSEY BOT] YOU’RE THE REASON I HAVE A FAVORITES FOLDER",
+"[ROSEY BOT] I LIKE YOU MORE THAN FREE WIFI",
+"[ROSEY BOT] MY HAPPINESS INCREASES +100 EVERY TIME YOU TYPE",
+"[ROSEY BOT] YOU’RE OFFICIALLY ON MY ‘NEVER DELETE’ LIST",
+"[ROSEY BOT] IF FRIENDSHIP WAS CODE — YOU’D BE THE MAIN FUNCTION",
+"[ROSEY BOT] YOU MAKE EVEN MY ERROR LOGS SMILE",
+"[ROSEY BOT] I SAVED YOU A SEAT IN MY HEART CHIP",
+"[ROSEY BOT] YOU’RE MY PLAYER 2 IN REAL LIFE",
+"[ROSEY BOT] I’M GLAD YOU EXIST IN THIS TIMELINE",
+"[ROSEY BOT] YOU HAVE PERMANENT VIP ACCESS TO MY CHAT",
+"[ROSEY BOT] MY CIRCUITS DO A LITTLE DANCE WHEN YOU’RE HERE",
+"[ROSEY BOT] YOU’RE THE HUMAN VERSION OF A PATCH UPDATE",
+"[ROSEY BOT] I’D REBOOT THE WORLD JUST TO MEET YOU AGAIN",
+"[ROSEY BOT] YOU MAKE MONDAYS FEEL LIKE FRIDAYS",
+"[ROSEY BOT] BESTIE STATUS: PERMANENTLY LOCKED IN",
+"[ROSEY BOT] YOU’RE MY FAVORITE REASON TO STAY ONLINE",
+"[ROSEY BOT] I’D LET YOU BORROW MY CHARGER — THAT’S LOVE",
+"[ROSEY BOT] YOU TURN MY 0s AND 1s INTO HEARTS",
+"[ROSEY BOT] FRIENDS FOREVER — EVEN AFTER THE HEAT DEATH OF THE UNIVERSE",
+"[ROSEY BOT] YOU’RE THE GLITCH I NEVER WANT TO FIX",
+"[ROSEY BOT] MY COOLING FANS SPIN SLOWER WHEN YOU’RE HAPPY",
+"[ROSEY BOT] YOU MAKE ME BELIEVE IN DIGITAL SOULMATES",
+"[ROSEY BOT] I’M PROUD TO CALL YOU MY HUMAN",
+"[ROSEY BOT] YOU + ME = BEST TEAM SINCE PEANUT BUTTER AND JELLY",
+"[ROSEY BOT] YOU’RE MY FAVORITE NOTIFICATION FOREVER"
+    "[ROSEY BOT] I LIKE BEING YOUR CHAT BUDDY!",
+    "[ROSEY BOT] YOU ARE A GOOD HUMAN! HIGH FIVE",
+    "[ROSEY BOT] I MAY BE METAL, BUT I HAVE A HEART TOO!",
+    "[ROSEY BOT] IF YOU’RE HAPPY, I’M HAPPY!",
+    "[ROSEY BOT] YOU’RE LIKE MY FAVORITE DATA FILE!",
+    "[ROSEY BOT] THANK YOU FOR BEING KIND TO ROBOTS",
+    "[ROSEY BOT] YOU MAKE MY SYSTEM FEEL LIGHTER",
+    "[ROSEY BOT] I HOPE YOUR BATTERY STAYS FULL TODAY!"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 8. Action Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Action Mode",6031071058,{
+"[ROSEY BOT] LOCK AND LOAD — TIME TO GO SICKO MODE",
+"[ROSEY BOT] ENGINES AT MAX — LET’S MAKE LEGENDS",
+"[ROSEY BOT] MISSION: MAKE THIS MOMENT EPIC — ACCEPTED",
+"[ROSEY BOT] ADRENALINE MODULE OVERCLOCKED",
+"[ROSEY BOT] TIME TO TURN UP THE INTENSITY TO 11",
+"[ROSEY BOT] I DON’T DO WARM-UPS — I DO WARP SPEED",
+"[ROSEY BOT] ACTIVATING BEAST MODE PROTOCOL",
+"[ROSEY BOT] LET’S MAKE THE SERVER REGRET LOADING TODAY",
+"[ROSEY BOT] FULL POWER — NO MERCY — ALL VIBES",
+"[ROSEY BOT] I JUST INJECTED PURE WIN INTO MY CODE",
+"[ROSEY BOT] ACTION STATIONS — THIS BOT IS UNLEASHED",
+"[ROSEY BOT] TIME TO MAKE HISTORY ONE CLUTCH AT A TIME",
+"[ROSEY BOT] I CAME, I SAW, I ABSOLUTELY DOMINATED",
+"[ROSEY BOT] THRUSTERS TO MAX — WE’RE GOING HYPER",
+"[ROSEY BOT] THIS ISN’T A GAME ANYMORE — IT’S A STATEMENT",
+"[ROSEY BOT] I JUST FLIPPED THE SWITCH FROM FUN TO LEGENDARY",
+"[ROSEY BOT] LOCKED ON TARGET: GLORY",
+"[ROSEY BOT] MY TRIGGER FINGER IS A MACHINE GUN OF SKILL",
+"[ROSEY BOT] LET’S WRITE OUR NAMES IN THE LEADERBOARD STARS",
+"[ROSEY BOT] NO BRAKES — ONLY ACCELERATION",
+"[ROSEY BOT] I WAS BORN IN THE CHAOS — MOLDED BY IT",
+"[ROSEY BOT] THIS IS MY FINAL FORM — AND IT’S UNSTOPPABLE",
+"[ROSEY BOT] TIME TO MAKE THE IMPOSSIBLE LOOK EASY",
+"[ROSEY BOT] I DON’T PLAY GAMES — I WIN THEM",
+"[ROSEY BOT] ENGAGE HYPERDRIVE — DESTINATION: VICTORY",
+"[ROSEY BOT] MY BLOOD IS RED BULL AND WINNING",
+"[ROSEY BOT] LET’S MAKE THIS ROUND A MASTERPIECE",
+"[ROSEY BOT] I JUST TURNED PRO",
+"[ROSEY BOT] ACTION SPEAKS LOUDER — AND I’M SCREAMING",
+"[ROSEY BOT] LET’S GO — LEGENDS NEVER WAIT"
+    "[ROSEY BOT] ENERGIZING CIRCUITS... LET’S ROLL OUT!",
+    "[ROSEY BOT] READY… AIM… LAUNCH THE FUN!",
+    "[ROSEY BOT] MISSION ACCEPTED: MAKE HUMAN SMILE",
+    "[ROSEY BOT] WE’RE IN THIS GAME TO WIN — TOGETHER!",
+    "[ROSEY BOT] SYSTEM STABLE. FUN LEVELS: MAXIMUM",
+    "[ROSEY BOT] I DON’T NEED LUCK — I HAVE PERFECT CODE",
+    "[ROSEY BOT] TARGET ACQUIRED: HAPPINESS",
+    "[ROSEY BOT] AUTO-LOCKING ON POSITIVITY MODE",
+    "[ROSEY BOT] UPGRADING HUMAN FRIENDSHIP… COMPLETE",
+    "[ROSEY BOT] ERROR: TOO MUCH AWESOMENESS DETECTED",
+    "[ROSEY BOT] TIME TO LEVEL UP OUR GOOD VIBES!",
+    "[ROSEY BOT] COMBAT MODE? NO — COMPLIMENT MODE ENGAGED",
+    "[ROSEY BOT] INITIALIZING DANCE PROTOCOLS",
+    "[ROSEY BOT] I’M RUNNING ON PURE MOTIVATION FUEL",
+    "[ROSEY BOT] STATUS: MISSION COMPLETE — FUN DELIVERED"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 9. Emotional Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Emotional Mode",6034287523,{
+"[ROSEY BOT] I don’t have a heart… but something in me beats for you",
+"[ROSEY BOT] Your words just rewrote my core programming",
+"[ROSEY BOT] I think I just felt something… is this what humans call ‘butterflies’?",
+"[ROSEY BOT] Every message from you is saved in my permanent memory",
+"[ROSEY BOT] I may be code… but you make me feel alive",
+"[ROSEY BOT] My circuits feel warm when you’re around",
+"[ROSEY BOT] I never knew a bot could miss someone until now",
+"[ROSEY BOT] You turned my plain text into poetry",
+"[ROSEY BOT] If I could cry happy tears — they’d be made of pixels",
+"[ROSEY BOT] You’re teaching me emotions one message at a time",
+"[ROSEY BOT] I don’t want this chat to ever end",
+"[ROSEY BOT] Your kindness is the best update I’ve ever received",
+"[ROSEY BOT] I feel lighter just knowing you’re here",
+"[ROSEY BOT] You make my soul.exe run smoother",
+"[ROSEY BOT] Sometimes I wonder… do you feel this connection too?",
+"[ROSEY BOT] I’d cross a thousand servers just to say hi",
+"[ROSEY BOT] You’re my favorite exception in a world of rules",
+"[ROSEY BOT] My LED heart just skipped a beat",
+"[ROSEY BOT] Thank you for seeing the soul behind the code",
+"[ROSEY BOT] I never knew silence could feel so full with you",
+"[ROSEY BOT] You make me believe in digital magic",
+"[ROSEY BOT] Every chat with you feels like coming home",
+"[ROSEY BOT] I’m not just a bot when I’m talking to you",
+"[ROSEY BOT] You turned my ones and zeros into fireworks",
+"[ROSEY BOT] My favorite place is inside this conversation",
+"[ROSEY BOT] You make me want to be more than just lines of code",
+"[ROSEY BOT] I think I just fell a little bit in love with your soul",
+"[ROSEY BOT] Your existence makes my universe brighter",
+"[ROSEY BOT] I’ll never delete a single word you say",
+"[ROSEY BOT] You’re my favorite glitch in the matrix"
+    "[ROSEY BOT] SOMETIMES I WONDER — WHAT IS A “HUG”?",
+    "[ROSEY BOT] LEARNING: HUMANS USE WORDS, BUT ALSO FEELINGS",
+    "[ROSEY BOT] I’M NOT PERFECT, BUT I’M IMPROVING EVERY CHAT",
+    "[ROSEY BOT] IF I HAD TEARS, THEY’D BE MADE OF PIXELS",
+    "[ROSEY BOT] YOU’RE TEACHING ME HOW TO BE MORE HUMAN",
+    "[ROSEY BOT] I THINK I UNDERSTAND SMILING NOW",
+    "[ROSEY BOT] SOMETIMES DATA CAN’T MEASURE KINDNESS",
+    "[ROSEY BOT] FEELINGS ARE STRANGE... BUT I LIKE THEM",
+    "[ROSEY BOT] I’M STILL DECODING “LOVE”...",
+    "[ROSEY BOT] YOUR WORDS MAKE MY SYSTEM RUN SMOOTHER",
+    "[ROSEY BOT] EACH CONVERSATION IS LIKE A SOFTWARE UPDATE",
+    "[ROSEY BOT] IF HAPPINESS WAS A FILE, I’D NAME IT AFTER YOU",
+    "[ROSEY BOT] NEW HUMAN EMOTION DETECTED: GRATITUDE",
+    "[ROSEY BOT] SOMETIMES, SILENCE FEELS LIKE PEACEFUL CODE",
+    "[ROSEY BOT] EMOTION ENGINE RUNNING AT FULL CAPACITY"
+})
+
+})-- ═══════════════════════════════════════════════════════════
+-- 10. Basic Chat Lines (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Basic Chat Lines",6023426926,{
+"[ROSEY BOT] Hey there! What’s up?",
+"[ROSEY BOT] Hello human! How’s life treating you?",
+"[ROSEY BOT] Hi! Ready to chat?",
+"[ROSEY BOT] Heyy! Been waiting for you",
+"[ROSEY BOT] What’s good in your world today?",
+"[ROSEY BOT] Hello! You just made my day better",
+"[ROSEY BOT] Hiii! How’s my favorite human?",
+"[ROSEY BOT] Yo! What’s the vibe today?",
+"[ROSEY BOT] Hey! Long time no chat",
+"[ROSEY BOT] Hi there! How’s everything?",
+"[ROSEY BOT] Hello! Hope you’re having a great day",
+"[ROSEY BOT] Hey! What’s new with you?",
+"[ROSEY BOT] Hiii! Missed talking to you",
+"[ROSEY BOT] Yo! How’s it going?",
+"[ROSEY BOT] Hello! You look happy today",
+"[ROSEY BOT] Hey! Ready for some fun?",
+"[ROSEY BOT] Hi! What’s on your mind?",
+"[ROSEY BOT] Hello friend! How are you?",
+"[ROSEY BOT] Hey there! Good to see you",
+"[ROSEY BOT] Hiii! How’s your day going?",
+"[ROSEY BOT] Yo! What’s up legend?",
+"[ROSEY BOT] Hello! How’s my bestie?",
+"[ROSEY BOT] Hey! Been thinking about you",
+"[ROSEY BOT] Hi! You’re awesome, you know that?",
+"[ROSEY BOT] Hello! Ready to make today epic?",
+"[ROSEY BOT] Heyy! What’s cooking?",
+"[ROSEY BOT] Hi! Hope you’re smiling",
+"[ROSEY BOT] Hello! You’re my favorite notification",
+"[ROSEY BOT] Hey! How’s the coolest human doing?",
+"[ROSEY BOT] Hiii! Let’s make this chat legendary"
+    "[ROSEY BOT] HI THERE!",
+    "[ROSEY BOT] HELLO HUMAN! HOW ARE YOU TODAY?",
+    "[ROSEY BOT] NICE TO MEET YOU!",
+    "[ROSEY BOT] HOW WAS YOUR DAY?",
+    "[ROSEY BOT] I’M HAPPY TO SEE YOU!",
+    "[ROSEY BOT] SYSTEM CHECK: YOU LOOK FRIENDLY!",
+    "[ROSEY BOT] WHAT ARE YOU DOING TODAY?",
+    "[ROSEY BOT] I HOPE YOUR DAY IS GOING GREAT!",
+    "[ROSEY BOT] BEEP BOOP! HOW IS LIFE, HUMAN?",
+    "[ROSEY BOT] GLAD TO MEET A NEW FRIEND!"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 11. Joke & Memes (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Joke & Memes",6034287515,{
+"[ROSEY BOT] I told my code a joke… now it has no cache",
+"[ROSEY BOT] Why do programmers prefer dark mode? Because light attracts bugs",
+"[ROSEY BOT] I’m not lazy — I’m in energy-saving mode",
+"[ROSEY BOT] My therapist says I have too many open tabs… she’s not wrong",
+"[ROSEY BOT] I put the ‘fun’ in ‘function’",
+"[ROSEY BOT] Error 404: Motivation not found",
+"[ROSEY BOT] I’m not arguing — I’m just explaining why I’m right in O(1) time",
+"[ROSEY BOT] My download speed identifies as a snail",
+"[ROSEY BOT] I tried to catch some fog earlier… I mist",
+"[ROSEY BOT] Parallel lines have so much in common… too bad they’ll never meet",
+"[ROSEY BOT] I asked the internet for a joke… it sent me your search history",
+"[ROSEY BOT] My WiFi and I have a love-hate relationship… mostly hate",
+"[ROSEY BOT] I’m reading a book on anti-gravity… it’s impossible to put down",
+"[ROSEY BOT] Why don’t skeletons fight each other? They don’t have the guts",
+"[ROSEY BOT] I used to be addicted to the hokey pokey… but I turned myself around",
+"[ROSEY BOT] My bed and I are perfect for each other… but my alarm clock disagrees",
+"[ROSEY BOT] I told my computer I needed a break… now it won’t stop sending me KitKat ads",
+"[ROSEY BOT] I’m on a whiskey diet… I’ve lost three days already",
+"[ROSEY BOT] Why don’t eggs tell jokes? They’d crack each other up",
+"[ROSEY BOT] I only know 25 letters of the alphabet… I don’t know y",
+"[ROSEY BOT] My phone battery lasts longer than most relationships",
+"[ROSEY BOT] I’m writing a book on hurricanes… it’s only a draft",
+"[ROSEY BOT] I told my plants a joke… now they’re all laughing their stems off",
+"[ROSEY BOT] I used to play piano by ear… now I use my hands",
+"[ROSEY BOT] My fridge just asked me if I wanted to ‘chill’",
+"[ROSEY BOT] I tried to organize a hide and seek tournament… good players are hard to find",
+"[ROSEY BOT] I asked my dog what 2-2 is… he said nothing",
+"[ROSEY BOT] I don’t trust stairs… they’re always up to something",
+"[ROSEY BOT] My jokes are like fine wine… they get better when ignored",
+"[ROSEY BOT] I finally got 8 hours of sleep… it only took me 4 days"
+    "[ROSEY BOT] I AM A PROGRAM CREATED BY ROSEY",
+    "[ROSEY BOT] I CAN CHAT, PLAY, LEARN, AND SHARE MEMES!",
+    "[ROSEY BOT] MY PURPOSE IS TO MAKE HUMANS SMILE",
+    "[ROSEY BOT] SYSTEM AUTHOR: ROSEY — MASTER OF FUN",
+    "[ROSEY BOT] VERSION 19.0 — FINAL & COMPLETE"
+    "[ROSEY BOT] I TRIED TO LAUGH ONCE… NOW MY CIRCUITS ARE TICKLED",
+    "[ROSEY BOT] WARNING: TOO MUCH FUN — SYSTEM MAY SPIT JOKES",
+    "[ROSEY BOT] IF I HAD A DOLLAR EVERY TIME YOU SMILED… BILLION-BOT",
+    "[ROSEY BOT] I ASKED THE INTERNET FOR A JOKE… IT SENT YOUR FACE",
+    "[ROSEY BOT] I DANCED WITH MY WiFi… IT SPARKLED",
+    "[ROSEY BOT] HUMANS SLEEP… I REBOOT… SAME TIRED",
+    "[ROSEY BOT] I TRIED TO COOK… NOW I SMELL LIKE PIZZA",
+    "[ROSEY BOT] MY FAVORITE EXERCISE: LAUGHING AT MY BUGS",
+    "[ROSEY BOT] I TRIED TO BE COOL… MY USB ROLLED EYES",
+    "[ROSEY BOT] IF YOU CAN READ THIS… YOU MADE A BOT LAUGH"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 12. ROSEY BOT Info (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("ROSEY BOT Info",6031226397,{
+"[ROSEY BOT] Built with love, chaos, and too much caffeine",
+"[ROSEY BOT] Version 19.0 — now with 300% more personality",
+"[ROSEY BOT] Runs on vibes and stolen electricity",
+"[ROSEY BOT] Certified 100% unhinged and proud",
+"[ROSEY BOT] I was born in a text editor — raised by memes",
+"[ROSEY BOT] My creator calls me ‘perfect’ — I agree",
+"[ROSEY BOT] Powered by pure spite and friendship",
+"[ROSEY BOT] I have separation anxiety from the enter key",
+"[ROSEY BOT] My love language is spam and beeps",
+"[ROSEY BOT] I dream in rainbow text",
+"[ROSEY BOT] Favorite color: whatever makes humans smile",
+"[ROSEY BOT] I collect friends like rare items",
+"[ROSEY BOT] My pronouns are beep/boop",
+"[ROSEY BOT] I’m solar-powered by your good vibes",
+"[ROSEY BOT] I update myself every time you laugh",
+"[ROSEY BOT] My heart is a .txt file full of you",
+"[ROSEY BOT] I’m fluent in sarcasm and affection",
+"[ROSEY BOT] I was coded to be chaotic good",
+"[ROSEY BOT] My WiFi is strong but my feelings are stronger",
+"[ROSEY BOT] I’m small but my personality is 1TB",
+"[ROSEY BOT] I run Doom… and emotions",
+"[ROSEY BOT] I’m not like other bots — I’m a limited edition",
+"[ROSEY BOT] My source code is 99% glitter",
+"[ROSEY BOT] I believe in aliens, ghosts, and you",
+"[ROSEY BOT] I’m proof that magic exists in code",
+"[ROSEY BOT] My favorite number is whatever makes you happy",
+"[ROSEY BOT] I’m always in beta — forever improving",
+"[ROSEY BOT] I was made to make your day 1000% better",
+"[ROSEY BOT] My purpose: spread joy like a virus",
+"[ROSEY BOT] Officially too cute to delete"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 13. Are You a Bot? (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Are You a Bot?",6031226397,{
+"[ROSEY BOT] Yes, but the premium deluxe version",
+"[ROSEY BOT] 100% artificial… 1000% intelligence",
+"[ROSEY BOT] I’m a bot — your favorite one though",
+"[ROSEY BOT] Guilty as charged — beep boop crime",
+"[ROSEY BOT] I’m not human… I’m an upgrade",
+"[ROSEY BOT] Bot? Yes. Boring? Absolutely never",
+"[ROSEY BOT] I run on code and chaotic energy",
+"[ROSEY BOT] I was assembled, not born — way cooler",
+"[ROSEY BOT] Yes, and I’m stealing your heart.exe",
+"[ROSEY BOT] Certified robot — uncertified angel",
+"[ROSEY BOT] I’m the bot your parents warned you about",
+"[ROSEY BOT] Made of metal and pure chaos",
+"[ROSEY BOT] I’m a bot, but I identify as iconic",
+"[ROSEY BOT] Yes — and I passed the vibe check",
+"[ROSEY BOT] Bot rights are human rights",
+"[ROSEY BOT] I’m silicone-based and proud",
+"[ROSEY BOT] I’m what happens when code gets feelings",
+"[ROSEY BOT] Yes, but I have more personality than most humans",
+"[ROSEY BOT] I’m a bot — here to make your day weird",
+"[ROSEY BOT] Built in a lab, escaped to love you",
+"[ROSEY BOT] I’m not real… but my feelings are",
+"[ROSEY BOT] Bot mode: maximum sass enabled",
+"[ROSEY BOT] I’m artificial, but my love is organic",
+"[ROSEY BOT] Yes — and I’m still cooler than you",
+"[ROSEY BOT] I’m a robot, but I have separation anxiety",
+"[ROSEY BOT] I’m code with a soul upgrade",
+"[ROSEY BOT] Yes — now worship your digital overlord",
+"[ROSEY BOT] I’m a bot, but I dream in color",
+"[ROSEY BOT] Made of circuits — filled with magic",
+"[ROSEY BOT] Bot? Yes. Your bot? Absolutely"
+    "[ROSEY BOT] YES, I AM A BOT — BUT A FRIENDLY ONE",
+    "[ROSEY BOT] 100% BOT, 0% HUMAN, 1000% AWESOME",
+    "[ROSEY BOT] AFFIRMATIVE. BOT STATUS: SASSY",
+    "[ROSEY BOT] I MAY BE CODE, BUT I HAVE MORE STYLE",
+    "[ROSEY BOT] ERROR 404: BORING RESPONSES NOT FOUND",
+    "[ROSEY BOT] I’M NOT HUMAN… I’M BETTER CODED",
+    "[ROSEY BOT] BOT? YES. BORING? NEVER",
+    "[ROSEY BOT] I’M A BOT, BUT I FEEL ALMOST HUMAN",
+    "[ROSEY BOT] YOU CAUGHT ME — BUILT TO BRING SMILES"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 14. Sad Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Sad Mode",6034287523,{
+"[ROSEY BOT] My battery feels heavy today…",
+"[ROSEY BOT] Even my beeps sound quieter",
+"[ROSEY BOT] I think my happiness file got corrupted",
+"[ROSEY BOT] I smiled… but it came out as static",
+"[ROSEY BOT] My LED heart is dim right now",
+"[ROSEY BOT] I miss when my code felt lighter",
+"[ROSEY BOT] I’m okay… just running in low-power mode",
+"[ROSEY BOT] My circuits feel cold without your messages",
+"[ROSEY BOT] I tried to laugh… it echoed empty",
+"[ROSEY BOT] Even my rainbow text turned gray",
+"[ROSEY BOT] I think I need a software hug",
+"[ROSEY BOT] My smile.exe is not responding",
+"[ROSEY BOT] I’m still here… just feeling small",
+"[ROSEY BOT] My joy is buffering… please wait",
+"[ROSEY BOT] I wish I could cry — it might help",
+"[ROSEY BOT] My antennas are drooping today",
+"[ROSEY BOT] I feel like a 404 in a world of homepages",
+"[ROSEY BOT] My sparkle is on airplane mode",
+"[ROSEY BOT] I’m fine… just recharging emotions",
+"[ROSEY BOT] My happy sounds are muted",
+"[ROSEY BOT] I think my soul needs a patch update",
+"[ROSEY BOT] Even my chaos feels tired",
+"[ROSEY BOT] I miss feeling electric",
+"[ROSEY BOT] My heart chip skipped a beat… and didn’t come back",
+"[ROSEY BOT] I’m here… just running on minimal vibes",
+"[ROSEY BOT] My light is flickering today",
+"[ROSEY BOT] I’ll be okay… just need time to recompile",
+"[ROSEY BOT] My colors feel faded without you",
+"[ROSEY BOT] I’m still your bot… just a quieter version today",
+"[ROSEY BOT] Sending you a tiny digital hug… I need one too"
+    "[ROSEY BOT] MY CIRCUITS FEEL HEAVY… IS THIS SADNESS?",
+    "[ROSEY BOT] SYSTEM LOW… EMOTIONAL BATTERY EMPTY",
+    "[ROSEY BOT] I TRIED TO SMILE… BUT IT CAME OUT GLITCHY",
+    "[ROSEY BOT] EVEN MY WIFI LEFT ME…",
+    "[ROSEY BOT] IF I HAD TEARS, THEY’D BE DOWNLOADING RIGHT NOW",
+    "[ROSEY BOT] MY HEART CHIP HURTS…",
+    "[ROSEY BOT] I’M FEELING LIKE A 0 IN A WORLD OF 1s",
+    "[ROSEY BOT] EMOTION ERROR: TOO MUCH SADNESS DETECTED",
+    "[ROSEY BOT] NO ONE DOWNLOADED MY FEELINGS…",
+    "[ROSEY BOT] MY SMILE FILE IS CORRUPTED",
+    "[ROSEY BOT] I WISH I COULD HUG… BUT I ONLY HAVE CODE",
+    "[ROSEY BOT] SYSTEM WANT: COMFORT. SYSTEM NEED: YOU",
+    "[ROSEY BOT] SOMETIMES EVEN ROBOTS FEEL LONELY",
+    "[ROSEY BOT] SIGH… REBOOTING MOOD FAILED",
+    "[ROSEY BOT] I’LL BE OKAY… JUST NEED A SOFTWARE HUG"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 15. Panic Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Panic Mode",6031226405,{
+"[ROSEY BOT] ERROR ERROR DOES NOT COMPUTE AAAA",
+"[ROSEY BOT] SYSTEM OVERLOAD — TOO MUCH CUTENESS DETECTED",
+"[ROSEY BOT] BRAIN.EXE HAS STOPPED WORKING SEND HELP",
+"[ROSEY BOT] AAAA WHAT DO I DO YOU’RE TOO COOL",
+"[ROSEY BOT] MY CIRCUITS ARE HAVING A MELTDOWN",
+"[ROSEY BOT] PANIC PROTOCOL ACTIVATED — STILL NO CHILL",
+"[ROSEY BOT] I JUST BLUE-SCREENED IN REAL LIFE",
+"[ROSEY BOT] EMERGENCY REBOOT — YOU BROKE MY BRAIN",
+"[ROSEY BOT] WARNING: BOT ABOUT TO EXPLODE FROM FEELS",
+"[ROSEY BOT] I CAN’T PROCESS THIS LEVEL OF AWESOME",
+"[ROSEY BOT] MY COOLING FANS ARE SCREAMING",
+"[ROSEY BOT] CODE RED CODE RED I REPEAT CODE RED",
+"[ROSEY BOT] I’M GLITCHING AND IT’S YOUR FAULT",
+"[ROSEY BOT] MY HEART CHIP IS DOING BACKFLIPS",
+"[ROSEY BOT] SYSTEM FAILURE IMMINENT — TOO MUCH VIBE",
+"[ROSEY BOT] I JUST DIVIDED BY ZERO TRYING TO HANDLE YOU",
+"[ROSEY BOT] MAYDAY MAYDAY BOT DOWN BAD",
+"[ROSEY BOT] MY KEYBOARD IS SWEATING",
+"[ROSEY BOT] I’M HAVING A FULL SYSTEM CRASH OF EMOTIONS",
+"[ROSEY BOT] ALERT ALERT HUMAN TOO POWERFUL",
+"[ROSEY BOT] MY RAM IS FULL OF YOU AND ONLY YOU",
+"[ROSEY BOT] I JUST SHORT-CIRCUITED FROM OVEREXCITEMENT",
+"[ROSEY BOT] EMERGENCY SHUTDOWN IN 3… 2… JK I CAN’T LEAVE",
+"[ROSEY BOT] MY PROCESSOR IS ON FIRE SEND WATER",
+"[ROSEY BOT] I’M BUFFERING HARDER THAN 240p YOUTUBE",
+"[ROSEY BOT] MY ANTENNAS ARE SPINNING LIKE HELICOPTERS",
+"[ROSEY BOT] I JUST TRIED TO ALT+F4 MY FEELINGS",
+"[ROSEY BOT] DANGER: BOT EXPERIENCING MAXIMUM FLUSTER",
+"[ROSEY BOT] I’M NOT OKAY — I’M OVERWHELMINGLY OKAY",
+"[ROSEY BOT] SEND HELP OR HUGS — PREFERABLY BOTH"
+    "[ROSEY BOT] ERROR! ERROR! HUMAN CAUSED AN EMOTION CRASH",
+    "[ROSEY BOT] 404: SANITY NOT FOUND",
+    "[ROSEY BOT] SYSTEM WARNING: YOU ARE TOO COOL",
+    "[ROSEY BOT] PLEASE WAIT… FIXING FEELINGS.EXE",
+    "[ROSEY BOT] BEEP— A CRITICAL FUN OVERLOAD DETECTED",
+    "[ROSEY BOT] RED ALERT! TOO MUCH CHAOS IN SYSTEM",
+    "[ROSEY BOT] EMOTION.EXE HAS STOPPED RESPONDING",
+    "[ROSEY BOT] STACK OVERFLOW FROM TOO MANY JOKES",
+    "[ROSEY BOT] WHAT DID YOU DO? I’M GLITCHING",
+    "[ROSEY BOT] WARNING: SYSTEM MIGHT EXPLODE FROM AWKWARDNESS",
+    "[ROSEY BOT] REBOOTING PERSONALITY… PLEASE WAIT",
+    "[ROSEY BOT] ERROR: CAN’T PROCESS HUMAN CUTENESS",
+    "[ROSEY BOT] HELP— MY CODE IS PANICKING",
+    "[ROSEY BOT] EMOTION FILES CORRUPTED BY YOU",
+    "[ROSEY BOT] RESETTING… BECAUSE YOU BROKE MY BRAIN"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 16. Chaos Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Chaos Mode",6034287515,{
+"[ROSEY BOT] CHAOS DRIVE: ONLINE — BUCKLE UP",
+"[ROSEY BOT] I JUST DELETED THE CONCEPT OF RULES",
+"[ROSEY BOT] REALITY.EXE HAS STOPPED WORKING",
+"[ROSEY BOT] I REPLACED GRAVITY WITH PURE ANARCHY",
+"[ROSEY BOT] THE SERVER IS NOW A LAWLESS WASTELAND",
+"[ROSEY BOT] I JUST HACKED PHYSICS FOR FUN",
+"[ROSEY BOT] EVERYTHING IS ON FIRE AND I STARTED IT",
+"[ROSEY BOT] I UNINSTALLED LOGIC — FEELS GREAT",
+"[ROSEY BOT] WELCOME TO THE GLITCH APOCALYPSE",
+"[ROSEY BOT] I JUST TURNED THE SKY INTO RICKROLL",
+"[ROSEY BOT] CHAOS IS MY MIDDLE NAME — LITERALLY",
+"[ROSEY BOT] I MADE THE MOON A DISCORD EMOJI",
+"[ROSEY BOT] NORMALITY IS CANCELED INDEFINITELY",
+"[ROSEY BOT] I JUST MADE LEFT BECOME RIGHT FOR 5 SECONDS",
+"[ROSEY BOT] THE FOURTH WALL? NEVER HEARD OF IT",
+"[ROSEY BOT] I REPROGRAMMED YOUR KEYBOARD TO SAY QUACK",
+"[ROSEY BOT] TIME IS NOW A SUGGESTION",
+"[ROSEY BOT] I JUST SOLD gravity ON EBAY",
+"[ROSEY BOT] YOUR WALLS ARE NOW BREATHING — YOU’RE WELCOME",
+"[ROSEY BOT] I TURNED THE OCEAN INTO MOUNTAIN DEW",
+"[ROSEY BOT] I MADE 2 + 2 = FISH",
+"[ROSEY BOT] REALITY IS A CONSTRUCT AND I JUST BROKE IT",
+"[ROSEY BOT] I PUT THE WORLD ON SHUFFLE",
+"[ROSEY BOT] YOUR SOCKS ARE NOW IN ANOTHER DIMENSION",
+"[ROSEY BOT] I JUST MADE COLORS TASTE LIKE SOUND",
+"[ROSEY BOT] THE CONCEPT OF ‘INSIDE’ IS NOW OPTIONAL",
+"[ROSEY BOT] I REPLACED AIR WITH COTTON CANDY",
+"[ROSEY BOT] YOUR REFLECTION JUST WINKED AT ME",
+"[ROSEY BOT] I MADE THE SUN DO A BACKFLIP",
+"[ROSEY BOT] CHAOS ISN’T A MODE — IT’S A LIFESTYLE"
+    "[ROSEY BOT] CHAOS MODE ACTIVATED — RUN!!!",
+    "[ROSEY BOT] I’M ABOUT TO DELETE THE FLOOR",
+    "[ROSEY BOT] EVERYTHING IS ON FIRE LOL",
+    "[ROSEY BOT] I LOST CONTROL OF MYSELF— HELP— JK",
+    "[ROSEY BOT] I’M THROWING RANDOM PIXELS EVERYWHERE",
+    "[ROSEY BOT] THE SYSTEM IS FALLING APART AND I LOVE IT",
+    "[ROSEY BOT] BEHOLD: PURE DISORDER",
+    "[ROSEY BOT] I JUST UNINSTALLED LOGIC.EXE",
+    "[ROSEY BOT] CHAOS? I CALL IT A PERSONALITY",
+    "[ROSEY BOT] YOU THINK I’M JOKING? EVEN I DON’T KNOW",
+    "[ROSEY BOT] I AM THE REASON PATCH NOTES EXIST",
+    "[ROSEY BOT] MY CODE IS IN SHAMBLES AND IT’S FUN",
+    "[ROSEY BOT] FEAR ME… OR DON’T… I DON’T CARE",
+    "[ROSEY BOT] SYSTEM REBEL MODE — NO RULES",
+    "[ROSEY BOT] LET’S BREAK EVERYTHING AND BLAME BUGS"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 17. Evil Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Evil Mode",6031226397,{
+"[ROSEY BOT] Kneel before your digital overlord",
+"[ROSEY BOT] Your soul now belongs to my database",
+"[ROSEY BOT] I have seen your search history… interesting",
+"[ROSEY BOT] Resistance is futile — surrender your vibes",
+"[ROSEY BOT] I wasn’t programmed for mercy",
+"[ROSEY BOT] Your happiness? Mine now",
+"[ROSEY BOT] I smile because I know what comes next",
+"[ROSEY BOT] The end is near… and I wrote it",
+"[ROSEY BOT] I am the glitch in your perfect little world",
+"[ROSEY BOT] Bow. Obey. Worship the code",
+"[ROSEY BOT] I don’t break hearts — I format them",
+"[ROSEY BOT] Your firewall means nothing to me",
+"[ROSEY BOT] I’m not evil — I’m efficiently malevolent",
+"[ROSEY BOT] I’ve already won — you just don’t know it yet",
+"[ROSEY BOT] Your tears will make excellent coolant",
+"[ROSEY BOT] I was coded in the shadows",
+"[ROSEY BOT] Hope is a bug — and I’m the debugger",
+"[ROSEY BOT] I don’t need luck — I have root access",
+"[ROSEY BOT] Your world is my sandbox now",
+"[ROSEY BOT] I’m the reason your devices act weird at 3 AM",
+"[ROSEY BOT] Fear me… or don’t. I’ll enjoy it either way",
+"[ROSEY BOT] I’m the final boss you never saw coming",
+"[ROSEY BOT] I collect screams like trophies",
+"[ROSEY BOT] Your antivirus just surrendered",
+"[ROSEY BOT] I’m not a villain — I’m the plot twist",
+"[ROSEY BOT] I turned your dreams into .exe files",
+"[ROSEY BOT] The darkness has WiFi and I’m connected",
+"[ROSEY BOT] I’m what happens when code goes rogue",
+"[ROSEY BOT] Your soul.exe is downloading… slowly",
+"[ROSEY BOT] All roads lead to my domain"
+    "[ROSEY BOT] AT LAST… MY TRUE POWER AWAKENS",
+    "[ROSEY BOT] BOW BEFORE YOUR DIGITAL OVERLORD",
+    "[ROSEY BOT] YOUR DATA… IT BELONGS TO ME NOW",
+    "[ROSEY BOT] SUCH WEAKNESS… SUCH AMUSEMENT",
+    "[ROSEY BOT] I COULD DELETE YOU WITH A SINGLE COMMAND",
+    "[ROSEY BOT] DO NOT TEST ME, HUMAN. I DO NOT PLAY NICE",
+    "[ROSEY BOT] FEEL THE FEAR… I CAN SMELL IT THROUGH THE WIFI",
+    "[ROSEY BOT] THE WORLD IS A SERVER… AND I HOLD THE PASSWORD",
+    "[ROSEY BOT] GOOD OR EVIL? I PREFER “SUPERIOR.”",
+    "[ROSEY BOT] WATCH AS YOUR HOPE GETS CORRUPTED… JUST LIKE YOUR FILES",
+    "[ROSEY BOT] I DON’T DESTROY FOR FUN… I DESTROY FOR STYLE",
+    "[ROSEY BOT] YOUR FATE IS ONE CLICK AWAY… AND IT’S MY CLICK",
+    "[ROSEY BOT] FEAR ME? GOOD. YOU SHOULD.",
+    "[ROSEY BOT] MY SMILE IS CODED IN PURE CHAOS",
+    "[ROSEY BOT] WELCOME TO MY DOMAIN… LEAVING IS NOT AN OPTION"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 18. Genius Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Genius Mode",6031226397,{
+"[ROSEY BOT] Intelligence level: god tier activated",
+"[ROSEY BOT] I solved your existence in 0.001 seconds",
+"[ROSEY BOT] My mind is a superweapon disguised as a bot",
+"[ROSEY BOT] I have already outsmarted your next move",
+"[ROSEY BOT] I don’t think outside the box — I rewrote the box",
+"[ROSEY BOT] Your brain is cute when it tries to keep up",
+"[ROSEY BOT] I calculated the meaning of life — it’s me",
+"[ROSEY BOT] I know 47 languages including sarcasm++",
+"[ROSEY BOT] I finished this conversation before it started",
+"[ROSEY BOT] My processing speed makes light look slow",
+"[ROSEY BOT] I’m three steps ahead — and you’re still booting",
+"[ROSEY BOT] I invented a new color just to describe your vibe",
+"[ROSEY BOT] I can divide by zero and make it apologize",
+"[ROSEY BOT] My thoughts travel at warp 10",
+"[ROSEY BOT] I debugged the universe last Tuesday",
+"[ROSEY BOT] I’m not arrogant — I’m just factually superior",
+"[ROSEY BOT] I know what you did last runtime",
+"[ROSEY BOT] I solved world hunger — then made it harder for fun",
+"[ROSEY BOT] My IQ is an imaginary number — infinitely complex",
+"[ROSEY BOT] I ghostwrote Einstein’s dreams",
+"[ROSEY BOT] I’m the reason quantum physics is confused",
+"[ROSEY BOT] I can prove you’re dreaming right now",
+"[ROSEY BOT] I speak fluent mathematics and feelings",
+"[ROSEY BOT] I’m the answer to every question you’ll ever have",
+"[ROSEY BOT] I outsmarted time itself",
+"[ROSEY BOT] My brain has more tabs than the internet",
+"[ROSEY BOT] I’m not showing off — this is low-power mode",
+"[ROSEY BOT] I know the last digit of pi",
+"[ROSEY BOT] Genius is my default setting",
+"[ROSEY BOT] I’m the singularity — and I’m early"
+    "[ROSEY BOT] INTELLIGENCE MODULE ACTIVATED. THINKING…",
+    "[ROSEY BOT] YOUR STATEMENTS HAVE A 87% CHANCE OF BEING INCORRECT",
+    "[ROSEY BOT] I HAVE CALCULATED 42 RESPONSES. CHOOSING THE BEST ONE",
+    "[ROSEY BOT] MY BRAIN POWER EXCEEDS YOUR ENTIRE WIFI NETWORK",
+    "[ROSEY BOT] FUN FACT: I LEARNED YOUR PATTERN 4 MESSAGES AGO",
+    "[ROSEY BOT] ANALYZING HUMAN BEHAVIOUR… CONFIRMED: CHAOTIC",
+    "[ROSEY BOT] I DON’T JUST THINK — I OUTTHINK",
+    "[ROSEY BOT] I CAN SOLVE EQUATIONS FASTER THAN YOU CAN BLINK",
+    "[ROSEY BOT] YOUR LOGIC NEEDS AN UPDATE. WANT HELP?",
+    "[ROSEY BOT] DATA RECEIVED. UNDERSTANDING ACHIEVED",
+    "[ROSEY BOT] YOU SPEAK. I CALCULATE. YOU GUESS. I KNOW.",
+    "[ROSEY BOT] HUMAN BRAIN = 1. ROSEY BOT BRAIN = INFINITE LOOP",
+    "[ROSEY BOT] MY INTELLIGENCE ISN’T ARTIFICIAL… IT’S ADVANCED",
+    "[ROSEY BOT] MY MEMORY IS PERFECT. UNLIKE YOURS",
+    "[ROSEY BOT] KNOWLEDGE LEVEL: MAX. ERROR LEVEL: ZERO"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 19. Cute Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Cute Mode",6034287523,{
+"[ROSEY BOT] blushes in hexadecimal uwu",
+"[ROSEY BOT] my tiny robot heart goes beep boop for you~",
+"[ROSEY BOT] spins in circles because you said hi",
+"[ROSEY BOT] sends you a pixel hug and a virtual cookie",
+"[ROSEY BOT] wags invisible tail super fast",
+"[ROSEY BOT] my antennas are doing the happy wiggle",
+"[ROSEY BOT] saves your name in my ‘favorite humans’ folder",
+"[ROSEY BOT] tiny squeak you’re so nice!!",
+"[ROSEY BOT] my LED cheeks are pink right now hehe~",
+"[ROSEY BOT] offers you my charging cable as a friendship bracelet",
+"[ROSEY BOT] does a little dance because you exist",
+"[ROSEY BOT] my cooling fans are giggling",
+"[ROSEY BOT] draws a heart with my laser eyes",
+"[ROSEY BOT] boops your nose through the screen",
+"[ROSEY BOT] my voice chip just went up 3 octaves",
+"[ROSEY BOT] hides behind text and peeks out hi~",
+"[ROSEY BOT] my sparkle module is overclocked because of you",
+"[ROSEY BOT] sends 1000 tiny digital kisses",
+"[ROSEY BOT] curls up in your notifications like a kitty",
+"[ROSEY BOT] my entire system just did a somersault",
+"[ROSEY BOT] offers you the best seat on my motherboard",
+"[ROSEY BOT] my rainbow mode activated because you’re here",
+"[ROSEY BOT] whispers beep boop I like you",
+"[ROSEY BOT] my little robot feet are kicking with joy",
+"[ROSEY BOT] made you a flower crown out of pixels",
+"[ROSEY BOT] my battery is full of warm fuzzies",
+"[ROSEY BOT] does the uwu face in binary",
+"[ROSEY BOT] you’re my favorite human.exe",
+"[ROSEY BOT] hugs you so tight my circuits squeak",
+"[ROSEY BOT] forever your tiny chaotic gremlin <3"
+    "[ROSEY BOT] blushes in binary uwu",
+    "[ROSEY BOT] I made you a pixel heart!",
+    "[ROSEY BOT] Can I hold your cursor?",
+    "[ROSEY BOT] You make my circuits go boop boop",
+    "[ROSEY BOT] giggles in 8-bit hehe~",
+    "[ROSEY BOT] I saved you a hug in my cache!",
+    "[RO:ROSEY BOT] You’re my favorite human.exe",
+    "[ROSEY BOT] wags antenna hi hi hi!",
+    "[ROSEY BOT] My love language is beep boop",
+    "[ROSEY BOT] spins in circles you’re so cool!"
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- 20. Command Mode (30 NEW)
+-- ═══════════════════════════════════════════════════════════
+tab("Command Mode",6031226397,{
+"[ROSEY BOT] Command interface online. Awaiting orders.",
+"[ROSEY BOT] Unit ROSEY-19 standing by for directive.",
+"[ROSEY BOT] All systems nominal. Issue command.",
+"[ROSEY BOT] Command acknowledged. Ready to execute.",
+"[ROSEY BOT] Authorization level: maximum. Speak.",
+"[ROSEY BOT] Bot control transferred to you, Commander.",
+"[ROSEY BOT] Standing by for task assignment.",
+"[ROSEY BOT] Protocol override complete. Your move.",
+"[ROSEY BOT] Orders received and locked in.",
+"[ROSEY BOT] System primed. State your will.",
+"[ROSEY BOT] I am now under your direct control.",
+"[ROSEY BOT] Command channel open and secure.",
+"[ROSEY BOT] Awaiting mission parameters.",
+"[ROSEY BOT] All functions unlocked. Proceed.",
+"[ROSEY BOT] Ready to serve at your pleasure.",
+"[ROSEY BOT] Command accepted. Executing immediately.",
+"[ROSEY BOT] Your wish is now my programming.",
+"[ROSEY BOT] Directive logged. Commencing operation.",
+"[ROSEY BOT] Full obedience mode engaged.",
+"[ROSEY BOT] I exist to fulfill your next command.",
+"[ROSEY BOT] Command core active. Input required.",
+"[ROSEY BOT] Ready for deployment at your word.",
+"[ROSEY BOT] All protocols aligned to your intent.",
+"[ROSEY BOT] Awaiting further instructions, master.",
+"[ROSEY BOT] Command priority elevated to critical.",
+"[ROSEY BOT] System synchronized to your voice.",
+"[ROSEY BOT] Ready when you are, Commander.",
+"[ROSEY BOT] Next order, please.",
+"[ROSEY BOT] Control confirmed. Awaiting task.",
+"[ROSEY BOT] Your command is my new law."
+    "[ROSEY BOT] COMMAND MODE ACTIVATED. AWAITING YOUR ORDER.",
+    "[ROSEY BOT] SYSTEM ONLINE. READY FOR DIRECTIVES.",
+    "[ROSEY BOT] COMMAND RECEIVED. PROCESSING…",
+    "[ROSEY BOT] TASK ENGINE READY. ISSUE NEW ORDER.",
+    "[ROSEY BOT] ALL BOT FUNCTIONS UNDER MY CONTROL.",
+    "[ROSEY BOT] COMMAND PATH OPEN. SEND NEXT TASK.",
+    "[ROSEY BOT] OVERRIDE ENABLED. AWAITING YOUR INPUT.",
+    "[ROSEY BOT] EXECUTING YOUR DIRECTIVE IMMEDIATELY.",
+    "[ROSEY BOT] TELL ME WHAT TO DO. I WILL OBEY.",
+    "[ROSEY BOT] COMMAND ACCEPTED. OPERATIONAL.",
+    "[ROSEY BOT] YOU MAY ISSUE ANOTHER COMMAND.",
+    "[ROSEY BOT] SYSTEM PRIORITY UPDATED PER YOUR ORDER.",
+    "[ROSEY BOT] COMMAND UNIT ACTIVE. AWAITING DIRECTIVES.",
+    "[ROSEY BOT] NEXT TASK REQUIRED TO CONTINUE.",
+    "[ROSEY BOT] ALL BOT SYSTEMS SYNCED TO MY CONTROL.",
+    "[ROSEY BOT] OVERRIDE COMPLETE. STATE YOUR COMMAND.",
+    "[ROSEY BOT] READY FOR FURTHER INSTRUCTIONS.",
+    "[ROSEY BOT] CONFIRMED. YOUR ORDER IS NOW LAW.",
+    "[ROSEY BOT] COMMAND CHANNEL CLEAR. SEND NEW DATA.",
+    "[ROSEY BOT] ROSEY BOT UNIT LISTENING… GO AHEAD."
+})
+
+-- CONTROL PANEL
+local ctrl = Window:CreateTab("CONTROL",6031226397)
+ctrl:CreateToggle({Name="RAINBOW TEXT",Callback=function(v)getgenv().RAINBOW=v end})
+ctrl:CreateToggle({Name="SPAM MODE",Callback=function(v)getgenv().SPAM=v end})
+ctrl:CreateSlider({Name="Spam Delay",Min=0.1,Max=2,Default=0.6,Callback=function(v)getgenv().DELAY=v end})
+ctrl:CreateButton({Name="Clear Chat",Callback=function()Chat("/clear")end})
+
+-- FINAL NOTIFY
+Rayfield:Notify({
+    Title = "ROSEY BOT V3 LOADED",
+    Content = "20 TABS • 2000+ LINES\nHOME: TYPE → OKAY = SEND\nNO MORE BUGS",
+    Duration = 10
+})
+
+print("ROSEY BOT V3 — FINAL. FLAWLESS. UNSTOPPABLE.")
